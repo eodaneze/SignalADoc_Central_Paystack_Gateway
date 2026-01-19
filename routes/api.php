@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Payment initialization (called by tenant apps)
+Route::middleware(['throttle:payment-init'])->group(function () {
+    Route::post('/payments/initialize', [PaymentController::class, 'initialize']);
+});
+
+// Paystack redirect callback
+Route::get('/payments/callback', [PaymentController::class, 'callback'])
+    ->name('payment.callback');
+
+// Paystack webhook listener
+Route::middleware(['throttle:webhooks'])->group(function () {
+    Route::post('/webhooks/paystack', [WebhookController::class, 'handle']);
 });
