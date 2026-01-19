@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class App extends Model
 {
+    use HasFactory;
      protected $fillable = [
         'app_id',
         'name',
@@ -16,5 +17,4 @@ class App extends Model
         'callback_url',
         'webhook_secret',
     ];
-    use HasFactory;
 }
