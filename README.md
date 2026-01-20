@@ -41,7 +41,7 @@ php artisan key:generate
 
 
 ### 2. Environment Variables
-APP_NAME=PaystackGateway
+APP_NAME=Central_Paystack_Gateway
 APP_ENV=local
 APP_URL=http://localhost:8000
 
