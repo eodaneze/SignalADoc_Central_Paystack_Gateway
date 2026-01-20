@@ -121,7 +121,7 @@ return [
         'paystack' => [
             'driver' => 'daily',
             'path' => storage_path('logs/paystack.log'),
-            'level' => 'info',
+            'level' => env('PAYSTACK_LOG_LEVEL', 'info'),
             'days' => 14,
         ]
         
