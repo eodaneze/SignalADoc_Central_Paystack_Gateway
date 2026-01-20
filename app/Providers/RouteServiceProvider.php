@@ -43,10 +43,23 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
+     protected function configureRateLimiting()
     {
+        // Default API limiter (optional, keep it simple)
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+            return Limit::perMinute(60)->by($request->ip());
+        });
+
+        // Payment initialization limiter (per tenant via header)
+        RateLimiter::for('payment-init', function (Request $request) {
+            $key = $request->header('X-App-Id') ?: $request->ip();
+            return Limit::perMinute(30)->by($key);
+        });
+
+        // Webhook limiter (by IP is fine)
+        RateLimiter::for('webhooks', function (Request $request) {
+            return Limit::perMinute(100)->by($request->ip());
         });
     }
+
 }
