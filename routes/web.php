@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/tenant/return', function (Request $request) {
+    return response()->json([
+        'message'   => 'Returned to originating app',
+        'status'    => $request->query('status'),
+        'reference' => $request->query('reference'),
+    ]);
+});
+
 
 
 

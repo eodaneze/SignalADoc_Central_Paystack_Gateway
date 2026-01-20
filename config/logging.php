@@ -117,6 +117,14 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'paystack' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/paystack.log'),
+            'level' => 'info',
+            'days' => 14,
+        ]
+        
     ],
 
 ];
