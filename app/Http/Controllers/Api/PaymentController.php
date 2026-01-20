@@ -37,7 +37,7 @@ class PaymentController extends Controller
             'amount' => $data['amount'],
             'currency' => $data['currency'],
             'reference' => $data['reference'],
-            'callback_url' => route('payment.callback'),
+            'callback_url' => url('/api/payments/callback'),
             'metadata' => $data['metadata'] ?? [],
         ]);
 
